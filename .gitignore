@@ -127,3 +127,9 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# PyCharm settings
+.idea/
+
+# Scribble folder
+scribble_folder/
