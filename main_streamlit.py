@@ -121,7 +121,7 @@ if st.sidebar.button('Optimize'):
     print('Generate instance')
     instance = Instance.generate(n_customers, demand_range,
                                  n_sites, capacity_range, fixed_cost_range,
-                                 cost_per_unit_mile)
+                                 cost_per_unit_mile / 1.609344)
     print('Optimize')
     model = Model(instance)
     status, msg = model.solve()

@@ -24,6 +24,7 @@ class Instance:
         :param n_sites: number of sites
         :param capacity_range: pair with min and max site-capacity
         :param fixed_cost_range: pair with min and max site-fixed cost
+        :param shipping_cost: cost factor for shipping one unit one km
         :return: new instance
         """
         print('Generate instance')
@@ -50,15 +51,16 @@ class Instance:
                                               size=n_sites)
         sites['loc'] = sites[['lat', 'lon']].apply(lambda r: Loc(r[0], r[1]), axis=1)
 
-        return Instance(n_customers, customers, n_sites, sites)
+        return Instance(n_customers, customers, n_sites, sites, shipping_cost)
 
-    def __init__(self, n_customers, customers, n_sites, sites):
+    def __init__(self, n_customers, customers, n_sites, sites, shipping_cost):
         assert type(n_customers) == int
         self.n_customers = n_customers
         self.customers = customers
         assert type(n_sites) == int
         self.n_sites = n_sites
         self.sites = sites
+        self.shipping_cost = shipping_cost
 
     def __str__(self):
         return str(self.__dict__)
@@ -103,7 +105,8 @@ class Model(pulp.LpProblem):
 
         # Objective function
         self.shipping_costs = {
-            (i, j): self.data.sites.loc[i, 'loc'].haversine_distance(self.data.customers.loc[j, 'loc'])
+            (i, j): self.data.shipping_cost * self.data.sites.loc[i, 'loc'].haversine_distance(
+                self.data.customers.loc[j, 'loc'])
             for i in s_ids for j in c_ids}
         self += (pulp.lpSum([self.site_fixed_costs[i] * y[i] for i in s_ids])
                  + pulp.lpSum(

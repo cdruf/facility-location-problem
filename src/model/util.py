@@ -5,7 +5,7 @@ from pathlib import Path
 import numpy as np
 import pandas as pd
 
-data_folder_path = Path(__file__).parent.parent.absolute() / 'data'
+data_folder_path = Path(__file__).parent.parent.parent.absolute() / 'data'
 
 
 def eq_all(x: np.array, y: np.array):
