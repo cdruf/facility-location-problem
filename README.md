@@ -2,8 +2,8 @@
 
 This project is an examplary implementation of the facility location problem. Features are
 
-* the optimization model implemented with PuLP
-* a dashboard implemented with streamlit and deck.gl
+* the optimization model implemented with PuLP, and
+* a dashboard implemented with streamlit and deck.gl.
 
 ## Optimization problem
 
@@ -15,7 +15,7 @@ The facility location problem can be outlined as follows. Given
   
 determine the flows of the product from sites to customers and a subset of sites such that customer demand is fullfilled minimizing the total costs (fixed site costs, variable shipping costs)
 
-## Stream dashboard
+## Streamlit dashboard
 
 Start streamlit with 
 
